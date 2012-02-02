@@ -29,6 +29,7 @@
  */
 
 #import "ENManager.h"
+#import "EDAMLimits.h"
 
 
 static ENManager *sharedManager;
@@ -245,7 +246,7 @@ static ENManager *sharedManager;
 			[newNote setTitle:title];
 			[newNote setContent:content];
 			[newNote setCreated:(long long)[[NSDate date] timeIntervalSince1970] * 1000];
-			[newNote setResources:resources];
+			[newNote setResources:[NSMutableArray arrayWithArray: resources]];
 			createdNewNote = [self.noteStoreClient createNote:[self.auth authenticationToken] :newNote];
 			[newNote release];
 		}
@@ -285,16 +286,6 @@ static ENManager *sharedManager;
 }
 
 #pragma mark - Override
-
-- (id)retain {
-	// for singleton design pattern
-	return self;
-}
-
-- (void)release {
-	// for singleton design pattern
-}
-
 - (void)dealloc {
     [password release];
 	[username release];
